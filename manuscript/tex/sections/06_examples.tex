@@ -67,9 +67,17 @@ Comparing Eqs.~\eqref{eq:HMF_qubit_gaussian} and~\eqref{eq:HMF_qubit_ng_comm}: b
 \end{equation}
 demonstrating that a single non-Gaussian cumulant suffices to reproduce the full quantum Gaussian HMF for a qubit. This is a concrete realisation of Theorem~\ref{thm:qc_equivalence}.
 
+For the numerical check we evaluate the quantum reference state directly from finite-bath ED,
+\begin{equation}
+\rho_S^{\mathrm{ED}}(\beta)=\frac{\Tr_B e^{-\beta(H_S+H_B+f\otimes X_B)}}{\Tr e^{-\beta(H_S+H_B+f\otimes X_B)}},
+\end{equation}
+and compare it to a constructed commuting classical state $\rho_S^{\mathrm{cl}}$ obtained by matching the eigenvalues of $\rho_S^{\mathrm{ED}}$. The plotted observable is the physical-basis population $p_0=\langle 0|\rho_S|0\rangle$, together with the parameter cost needed in the classical non-Gaussian representation.
+
 \begin{figure}[t]
     \includegraphics[width=\columnwidth]{../../simulations/results/figures/qc_equivalence_demo.pdf}
-    \caption{\label{fig:qc_equivalence} \textbf{Quantum--Classical Equivalence.} Left: Renormalised splitting $\omega_{\mathrm{MF}}$ of a qubit coupled to a quantum Ohmic bath ($\alpha$) via transverse coupling $\sigma_x$. Right: The corresponding fourth-order cumulant $\kappa_4$ required for a classical non-Gaussian bath (coupled via $P_0$) to reproduce the exact same splitting. The classical bath ``pays'' for the quantum suppression effect with a specific non-Gaussian cost.}
+    \caption{\label{fig:qc_equivalence} \textbf{WRE-QC-1: explicit state-matching benchmark.} The quantum reference is
+    $\rho_S^{\mathrm{ED}}=\Tr_B[e^{-\beta(H_S+H_B+f\otimes X_B)}]/\Tr[e^{-\beta(H_S+H_B+f\otimes X_B)}]$
+    for a qubit with $H_S=0.6\,\sigma_z$ and $f=\sigma_x$, computed by finite-bath ED. Left panel: direct overlay of the population $p_0=\langle 0|\rho_S|0\rangle$ for the ED reference and the classical commuting construction $\rho_S^{\mathrm{cl}}$ obtained from matched eigenvalues. Right panel: effective non-Gaussian cost parameter required by the classical construction as a function of quantum coupling.}
 \end{figure}
 
 \paragraph{Beyond Gaussian: transverse deformation.}
