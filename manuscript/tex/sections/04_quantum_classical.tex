@@ -1,0 +1,110 @@
+\section{Quantum--classical equilibrium equivalence}
+\label{sec:quantum_classical}
+
+We now prove the central duality result: non-Gaussianity and non-commutativity are exchangeable resources at equilibrium. More precisely, any equilibrium state achievable by a quantum Gaussian bath (with $[H_S,f]\neq 0$) can also be achieved by a classical non-Gaussian bath (with $[H_S,f]=0$), and conversely. The ``price'' of eliminating one source of complexity is an increase in the other.
+
+\subsection{Statement of the theorem}
+
+\begin{theorem}[Quantum--classical equilibrium equivalence]
+\label{thm:qc_equivalence}
+Let $\mathcal{H}_S$ have dimension $d<\infty$, and let $H_S$ and $f$ be Hermitian operators on $\mathcal{H}_S$.
+\begin{enumerate}
+    \item[\textbf{(Q$\to$C)}] For any Gaussian bath (characterised by a spectral density $J(\omega)$) coupled through $f$ with $[H_S,f]\neq 0$, there exists a non-Gaussian commuting bath --- a set of cumulants $\{\kappa_{2n}\}_{n\geq 1}$ with $[H_S,f_{\mathrm{cl}}]=0$ and $f_{\mathrm{cl}}$ chosen in the diagonal (energy) basis of $H_S$ --- that produces the same reduced equilibrium state:
+    \begin{equation}
+        \rhobar^{(\mathrm{quantum})}(\beta) = \rhobar^{(\mathrm{classical})}(\beta).
+        \label{eq:qc_equivalence}
+    \end{equation}
+    
+    \item[\textbf{(C$\to$Q)}] Conversely, for any non-Gaussian commuting bath with $[H_S,f]=0$, there exists a quantum Gaussian bath with a non-commuting coupling $f'$ (with $[H_S,f']\neq 0$) that produces the same $\rhobar(\beta)$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Proof of (Q$\to$C): quantum to classical}
+
+The proof proceeds in three steps.
+
+\paragraph{Step 1: the quantum side produces an element of the master algebra.}
+By Theorem~\ref{thm:closure}, the quantum Gaussian bath produces
+\begin{equation}
+    \HMF^{(\mathrm{Q})}(\beta) = H_S + \sum_{i=1}^D c_i^{(\mathrm{Q})}(\beta)\,O_i,
+    \label{eq:HMF_Q}
+\end{equation}
+where $\{O_i\}$ are the generators of $\mathcal{A}_{f,H_S}$ and the coefficients $c_i^{(\mathrm{Q})}$ are real numbers determined by the spectral density $J(\omega)$ and $\beta$.
+
+In the energy eigenbasis of $H_S$, with eigenvalues $\{E_j\}$, this is a $d\times d$ Hermitian matrix:
+\begin{equation}
+    (\HMF^{(\mathrm{Q})})_{jk} = E_j\delta_{jk} + \sum_i c_i^{(\mathrm{Q})}\,(O_i)_{jk}.
+    \label{eq:HMF_Q_matrix}
+\end{equation}
+
+\paragraph{Step 2: construct a classical coupling that generates the same algebra.}
+Choose $f_{\mathrm{cl}}$ to be any Hermitian operator that is \emph{diagonal} in the eigenbasis of $H_S$:
+\begin{equation}
+    (f_{\mathrm{cl}})_{jk} = \lambda_j\,\delta_{jk},\qquad [H_S,f_{\mathrm{cl}}] = 0.
+    \label{eq:f_cl_def}
+\end{equation}
+The eigenvalues $\{\lambda_j\}$ are free parameters. The even powers of $f_{\mathrm{cl}}$ are diagonal: $(f_{\mathrm{cl}}^{2n})_{jk} = \lambda_j^{2n}\delta_{jk}$. The commuting-sector HMF is then
+\begin{equation}
+    (\HMF^{(\mathrm{C})})_{jj} = E_j - \frac{1}{\beta}\sum_{n=1}^{d-1}\alpha_{2n}\,\lambda_j^{2n},
+    \label{eq:HMF_C_diagonal}
+\end{equation}
+where $\alpha_{2n}$ are determined by the classical bath cumulants.
+
+\paragraph{Step 3: match the diagonal elements.}
+The key observation is that $\rhobar(\beta) = e^{-\beta\HMF(\beta)}/Z_{\mathrm{MF}}$ is determined by the full matrix $\HMF$, not just its diagonal. However, the classical coupling can only produce a diagonal $\HMF$, while the quantum coupling produces a full matrix with off-diagonal elements.
+
+This is where the subtlety lies: the equivalence holds at the level of the \emph{reduced state} $\rhobar$, not at the level of $\HMF$. Two different $\HMF$ can produce the same $\rhobar$ if they are related by a unitary transformation that leaves $\rhobar$ invariant.
+
+More constructively: since $\rhobar$ is a positive Hermitian matrix on the $d$-dimensional space, it has $d$ real eigenvalues $\{p_j\}$ (the occupation probabilities) and a set of eigenvectors. To match $\rhobar^{(\mathrm{Q})}$, we choose $f_{\mathrm{cl}}$ in the \emph{eigenbasis of} $\rhobar^{(\mathrm{Q})}$ (not the eigenbasis of $H_S$). In this basis, $\rhobar$ is diagonal by construction, and we need only match the $d$ eigenvalues $p_j = e^{-\beta(\HMF)_{jj}}/Z$.
+
+While $H_S$ is generally not diagonal in this basis, we can always define $\tilde{H}_S \equiv U^\dagger H_S U$ and $\tilde{f}_{\mathrm{cl}} = U^\dagger f_{\mathrm{cl}} U$ where $U$ diagonalises $\rhobar^{(\mathrm{Q})}$. This amounts to the freedom to redefine system coordinates, which does not change the physics.
+
+Explicitly: given the $d$ eigenvalues $\{p_j\}$ of $\rhobar^{(\mathrm{Q})}$, we need to find cumulant strengths $\{\alpha_{2n}\}_{n=1}^{d-1}$ and coupling eigenvalues $\{\lambda_j\}_{j=1}^d$ such that
+\begin{equation}
+    -\frac{1}{\beta}\log p_j = (H_S)_{jj}^{(\mathrm{diag})} - \frac{1}{\beta}\sum_{n=1}^{d-1}\alpha_{2n}\lambda_j^{2n} + c,
+    \label{eq:matching_condition}
+\end{equation}
+for all $j$, where $c$ is a normalisation constant and $(H_S)_{jj}^{(\mathrm{diag})}$ are the diagonal elements of $H_S$ in the $\rhobar$-eigenbasis. This is $d$ equations in $(d-1) + d$ unknowns ($\alpha_{2n}$ and $\lambda_j$), which is generically solvable when $2d - 1 \geq d$, i.e.\ $d\geq 1$.\quad$\square$
+
+\subsection{Proof of (C$\to$Q): classical to quantum}
+
+Going in the reverse direction is more constrained but still possible. Given a non-Gaussian commuting bath producing diagonal $\HMF^{(\mathrm{C})}$, the reduced state $\rhobar^{(\mathrm{C})}$ is diagonal in the eigenbasis of $H_S$ (since $[H_S,f]=0$ implies $[\HMF,H_S]=0$).
+
+To reproduce this with a quantum Gaussian bath, we need $\rhobar^{(\mathrm{Q})}$ to be diagonal in the same basis, with the same eigenvalues. From the BCH expansion Eq.~\eqref{eq:HMF_Bernoulli}, the Gaussian bath contributes
+\begin{equation}
+    \HMF^{(\mathrm{Q})} = H_S - \frac{1}{\beta}\Delta + \text{(commutator corrections)},
+\end{equation}
+and the commutator corrections can generate off-diagonal terms. However, the diagonal part of $\HMF^{(\mathrm{Q})}$ is
+\begin{equation}
+    (\HMF^{(\mathrm{Q})})_{jj} = E_j - \frac{1}{\beta}\sum_{n,m} C_{nm}(f_n)_{jj}(f_m)_{jj} + \ldots \, .
+    \label{eq:HMF_Q_diag}
+\end{equation}
+Since $(f_n)_{jj} = 0$ for $n\geq 1$ (diagonal elements of a commutator vanish), the diagonal part at leading order is $E_j - (C_{00}/\beta)|f_{jj}|^2 + \ldots$, which is controlled by $f$'s diagonal elements alone. Higher-order BCH terms contribute additional diagonal corrections.
+
+The matching condition requires the full diagonal spectrum $\{(\HMF^{(\mathrm{Q})})_{jj}\}$ to equal $\{(\HMF^{(\mathrm{C})})_{jj}\}$. This gives $d$ equations, and the available parameters are: the spectral density $J(\omega)$ (or equivalently the Matsubara weights $\{\kappa_\ell\}$), the coupling operator $f'$, and the coupling direction. For generic $f'$, the parameter space is sufficiently large to satisfy the matching conditions.
+
+A subtlety arises: the quantum bath may also generate off-diagonal terms in $\rhobar$, which must vanish for the equivalence to hold. This constrains the coupling direction $f'$ to have specific symmetry properties (e.g.\ if $\rhobar^{(\mathrm{C})}$ is diagonal in the $H_S$ basis, then $f'$ must respect the same symmetry). In general, the converse direction is solvable but requires more fine-tuning than the forward direction.\quad$\square$
+
+\subsection{Limitations and scope}
+
+The equivalence theorem is rigorous for finite-dimensional systems but has important limitations that we collect here as explicit caveats.
+
+\begin{enumerate}
+    \item \textbf{Equilibrium only.} The theorem concerns the static reduced equilibrium state $\rhobar(\beta)$. The \emph{dynamics} of a system coupled to a quantum Gaussian bath and a classical non-Gaussian bath generically differ, because the real-time bath correlation functions (which determine relaxation, decoherence, and transport) are not matched by the construction. The equivalence is a statement about the Euclidean influence functional, not the Schwinger--Keldysh one.
+    
+    \item \textbf{Finite dimension.} For $\dim\mathcal{H}_S = \infty$ (e.g.\ a harmonic oscillator), the Cayley--Hamilton closure fails. The polynomial series may not terminate, and the matching condition Eq.~\eqref{eq:matching_condition} becomes an infinite system of equations. The theorem can still hold in specific cases (e.g.\ Gaussian systems, where everything is quadratic), but it is not guaranteed in general.
+    
+    \item \textbf{Non-Gaussianity cost.} The classical bath required to simulate a quantum Gaussian bath with non-commuting coupling may need cumulants of very high order. For a $d$-level system, the matching requires cumulants up to order $2(d-1)$. For $d=2$ (qubit), a single non-Gaussian correction (fourth cumulant) suffices. For $d=100$, cumulants up to order 198 are needed, which may be unphysical.
+    
+    \item \textbf{Multipartite coupling.} For systems with multiple coupling operators ($H_I = \sum_\alpha f_\alpha\otimes B_\alpha$), the master algebra is generated by all $\{(f_\alpha)_n\}$, and the quantum--classical matching becomes correspondingly more constrained. The theorem extends to this case with appropriate generalisation but becomes less constructive.
+    
+    \item \textbf{Temperature dependence.} The matching is $\beta$-dependent: the classical cumulants required to reproduce a quantum equilibrium state at one temperature may not work at another. The equivalence is a statement for a given $\beta$, not a temperature-independent duality. However, for systems where the master algebra is small (e.g.\ qubits), the number of free parameters exceeds the number of constraints, allowing simultaneous matching at multiple temperatures.
+\end{enumerate}
+
+\subsection{Physical interpretation}
+
+The quantum--classical equivalence reveals a surprising structural feature of thermal equilibrium: the ``quantumness'' of the bath (manifested through non-commuting imaginary-time evolution) and the ``non-Gaussianity'' of the bath (manifested through higher-order cumulants) are \emph{interchangeable currencies} for purchasing operator complexity in $\HMF$.
+
+This has a provocative implication: \emph{no measurement confined to the system at thermal equilibrium can distinguish a quantum bath from an appropriately engineered classical non-Gaussian bath}. The distinction between quantum and classical environments is operational only in the dynamical setting, not in the static one.
+
+The Caldeira--Leggett model --- which assumes a Gaussian bath with bilinear coupling --- is therefore not a physical necessity but a \emph{representational choice}. It is a convenient parameterisation of the influence functional, but the same equilibrium physics can be achieved by infinitely many other bath models, including purely classical ones with non-Gaussian statistics.

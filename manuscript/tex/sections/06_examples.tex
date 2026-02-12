@@ -1,0 +1,168 @@
+\section{Worked examples}
+\label{sec:examples}
+
+We now demonstrate the framework through four examples of increasing complexity: a qubit with arbitrary coupling direction, a qutrit clock model, a damped harmonic oscillator, and a many-body spin chain. In each case, we construct the master algebra explicitly, compute the closure order, and (where possible) give the exact $\HMF$.
+
+\subsection{Qubit with transverse coupling and non-Gaussian bath}
+\label{sec:example_qubit}
+
+Consider $H_S = (\omega/2)\sigma_z$ and $f = \sigma_x$. This is the canonical spin-boson coupling~\cite{leggettDynamicsDissipativeTwostate1987}, but we allow the bath to be non-Gaussian.
+
+\paragraph{Adjoint chain.}
+The nested commutators are
+\begin{align}
+    f_0 &= \sigma_x, \nonumber\\
+    f_1 &= [H_S,\sigma_x] = i\omega\sigma_y, \nonumber\\
+    f_2 &= [H_S,i\omega\sigma_y] = -\omega^2\sigma_x = -\omega^2 f_0.
+    \label{eq:qubit_adjoint_chain}
+\end{align}
+Closure at $N=2$: $f_2 = -\omega^2 f_0$, so all higher elements are proportional to $f_0$ or $f_1$. The adjoint chain spans $\mathrm{span}\{\sigma_x,\sigma_y\} \cong \mathbb{R}^2$.
+
+\paragraph{Master algebra.}
+Since $\sigma_x^2 = \sigma_y^2 = I$ and $\sigma_x\sigma_y = i\sigma_z$, the products of $\{f_0,f_1\}$ generate
+\begin{equation}
+    \mathcal{A}_{f,H_S} = \mathrm{span}\{I,\sigma_x,\sigma_y,\sigma_z\} = M_2(\mathbb{C}).
+    \label{eq:qubit_master_algebra}
+\end{equation}
+Dimension $D=4$, free parameters $P=3$. The HMF is
+\begin{equation}
+    \HMF(\beta) = c_0(\beta)I + \frac{1}{2}\mathbf{h}_{\mathrm{MF}}(\beta)\cdot\boldsymbol{\sigma},
+    \label{eq:HMF_qubit_bloch}
+\end{equation}
+where $\mathbf{h}_{\mathrm{MF}}$ is a three-component Bloch vector.
+
+\paragraph{Gaussian bath.}
+For a Gaussian bath, the influence operator is $\Delta = \frac{1}{2}\sum_{n,m} C_{nm} f_n f_m$. With $f_0 = \sigma_x$ and $f_1 = i\omega\sigma_y$:
+\begin{align}
+    f_0 f_0 &= I, &\quad f_0 f_1 &= -\omega\sigma_z, \nonumber\\
+    f_1 f_0 &= \omega\sigma_z, &\quad f_1 f_1 &= \omega^2 I.
+    \label{eq:qubit_products}
+\end{align}
+Therefore $\Delta = \alpha(\beta)I + \delta(\beta)\sigma_z$, with
+\begin{align}
+    \alpha &= \tfrac{1}{2}(C_{00} + \omega^2 C_{11}), \nonumber\\
+    \delta &= \tfrac{\omega}{2}(C_{10} - C_{01}).
+    \label{eq:qubit_Delta_coefficients}
+\end{align}
+The reduced equilibrium state is $\rhobar = e^{-\beta H_S}e^{\Delta} = e^{\alpha}e^{-(\beta\omega/2)\sigma_z}e^{\delta\sigma_z}$, which gives
+\begin{equation}
+    \HMF^{(\mathrm{Gauss})} = \frac{\omega_{\mathrm{MF}}}{2}\sigma_z + c_0 I,
+    \label{eq:HMF_qubit_gaussian}
+\end{equation}
+with renormalised splitting $\omega_{\mathrm{MF}} = \omega - 2\delta/\beta$. The bath renormalises the splitting but preserves the quantisation axis --- as expected from the $U(1)$ symmetry of the $\sigma_z$ coupling.
+
+\paragraph{Non-Gaussian bath (commuting sector).}
+Now consider a non-Gaussian bath with $[H_S,f]=0$, i.e.\ $f = \sigma_z$. The polynomial hierarchy gives $f^2 = I$, so $\mathcal{A}_f = \mathrm{span}\{I,\sigma_z\}$ and
+\begin{equation}
+    \HMF^{(\mathrm{NG,comm})} = \frac{\omega'}{2}\sigma_z + c_0' I,
+    \label{eq:HMF_qubit_ng_comm}
+\end{equation}
+where $\omega' = \omega - (2/\beta)\alpha_2$, with $\alpha_2$ determined by the fourth cumulant. Higher cumulants only shift $c_0'$ (since $\sigma_z^{2n} = I$ for all $n$).
+
+\paragraph{Quantum--classical equivalence.}
+Comparing Eqs.~\eqref{eq:HMF_qubit_gaussian} and~\eqref{eq:HMF_qubit_ng_comm}: both produce a $\sigma_z$-only deformation. The Gaussian bath achieves the splitting renormalisation through commutator corrections ($\delta \propto C_{10} - C_{01}$), while the non-Gaussian commuting bath achieves it through the fourth cumulant ($\alpha_2$). Matching $\omega_{\mathrm{MF}} = \omega'$ gives the explicit equivalence
+\begin{equation}
+    \alpha_2 = \frac{\omega}{2}(C_{10} - C_{01}),
+    \label{eq:qubit_qc_match}
+\end{equation}
+demonstrating that a single non-Gaussian cumulant suffices to reproduce the full quantum Gaussian HMF for a qubit. This is a concrete realisation of Theorem~\ref{thm:qc_equivalence}.
+
+\paragraph{Beyond Gaussian: transverse deformation.}
+If the bath is \emph{both} non-Gaussian and non-commuting ($f = \sigma_x$, fourth cumulant nonzero), then $\Phi^{(4)}$ involves products of four $\tilde{f}(\tau_i)$, generating $\sigma_x\sigma_y\sigma_x\sigma_y = -I$ and $\sigma_x\sigma_x\sigma_y\sigma_y = -I$ terms, plus cross-terms involving $\sigma_z$. For the qubit, these all reduce to $\{I,\sigma_z\}$ (by the identity $\sigma_\alpha\sigma_\beta = \delta_{\alpha\beta}I + i\epsilon_{\alpha\beta\gamma}\sigma_\gamma$), so higher cumulants beyond second order do not generate new operator structures. This is a reflection of the algebraic triviality of the qubit: $\mathcal{A}_{f,H_S} = M_2(\mathbb{C})$ regardless of bath statistics.
+
+\subsection{Qutrit clock model}
+\label{sec:example_qutrit}
+
+For $d=3$, the situation is richer. Consider the qutrit with Hamiltonian and coupling
+\begin{equation}
+    H_S = \mathrm{diag}(E_1,E_2,E_3),\qquad f = Z_3 + Z_3^\dagger,
+    \label{eq:qutrit_model}
+\end{equation}
+where $Z_3 = \mathrm{diag}(1,\zeta,\zeta^2)$ with $\zeta = e^{2\pi i/3}$ is the clock matrix. The coupling $f$ has off-diagonal structure connecting all three levels.
+
+\paragraph{Adjoint chain.}
+With Bohr frequencies $\omega_{12} = E_1 - E_2$, $\omega_{23} = E_2 - E_3$, $\omega_{13} = E_1 - E_3$, and generically all three distinct, the adjoint chain $\{f_n\}$ has matrix elements $(f_n)_{jk} = (E_j - E_k)^n f_{jk}$. Closure occurs at $N = 3$ (since there are three distinct nonzero Bohr frequencies for the off-diagonal elements).
+
+\paragraph{Master algebra.}
+The coupling graph is fully connected (all $f_{jk}\neq 0$), so $\mathcal{A}_{f,H_S} = M_3(\mathbb{C})$ with $D = 9$ and $P = 8$. The HMF has the general Gell-Mann form
+\begin{equation}
+    \HMF = \sum_{\alpha=0}^{8} c_\alpha\,\lambda_\alpha,
+    \label{eq:HMF_qutrit_gellmann}
+\end{equation}
+where $\{\lambda_\alpha\}$ are the Gell-Mann matrices (with $\lambda_0 = I/\sqrt{3}$).
+
+\paragraph{Commuting-sector polynomial.}
+If $[H_S,f]=0$ (e.g.\ $f = \mathrm{diag}(\lambda_1,\lambda_2,\lambda_3)$), then $\HMF = H_S - (1/\beta)(\alpha_2 f^2 + \alpha_4 f^4 + \cdots)$. The Cayley--Hamilton theorem gives $f^3 = (\Tr f)f^2 - \frac{1}{2}[(\Tr f)^2 - \Tr(f^2)]f + (\det f)I$ for a $3\times 3$ matrix, so the polynomial hierarchy closes at order $f^4$ (since $f^4$ can be expressed in terms of $\{I,f,f^2\}$). Thus $P = 2$ free parameters: the bath can renormalise two independent diagonal structures.
+
+\paragraph{Non-commuting deformation.}
+When $[H_S,f]\neq 0$, the BCH expansion generates off-diagonal corrections proportional to $[H_S,\Delta] \propto [H_S, f_n f_m]$, which produce genuinely new Gell-Mann components not accessible in the commuting limit. For instance, the commutator $[\sigma_z^{(\mathrm{GR})}, f^2]$ (where $\sigma_z^{(\mathrm{GR})}$ is a generalised diagonal Gell-Mann matrix) can generate off-diagonal $\lambda_\alpha$ components. This ``non-commuting deformation'' of the commuting-sector polynomial is the hallmark of the qutrit's richer algebra.
+
+\paragraph{Quantum--classical equivalence.}
+For the qutrit, Theorem~\ref{thm:qc_equivalence} states that the 8-parameter non-commuting $\HMF$ can be reproduced by a classical non-Gaussian bath, but the classical bath must provide cumulants up to fourth order ($2(d-1) = 4$) to match the three eigenvalues of $\rhobar$. This is more demanding than the qubit case (where a single fourth cumulant sufficed) but still practically realisable.
+
+\subsection{Damped harmonic oscillator}
+\label{sec:example_HO}
+
+The quintessential strong-coupling model is the Caldeira--Leggett oscillator: $H_S = p^2/2m + m\omega_0^2 q^2/2$ and $f = q$.
+
+\paragraph{Adjoint chain.}
+The chain closes at $N=2$:
+\begin{align}
+    f_0 &= q, \nonumber\\
+    f_1 &= [H_S,q] = -ip/m, \nonumber\\
+    f_2 &= [H_S,-ip/m] = -i \cdot im\omega_0^2 q/m = \omega_0^2 q = \omega_0^2 f_0.\nonumber
+\end{align}
+Wait, let us be more careful. We have $[p^2/2m, q] = -ip/m$ and $[m\omega_0^2 q^2/2, q] = 0$, so $f_1 = -ip/m$. Then $[H_S, -ip/m] = -i[m\omega_0^2 q^2/2, p]/m = -i(im\omega_0^2 q)/m = \omega_0^2 q$. So $f_2 = \omega_0^2 f_0$, confirming closure at $N=2$.
+
+The adjoint chain spans $\{q, p\}$ (with appropriate normalisation).
+
+\paragraph{Master algebra.}
+The associative algebra generated by $\{q,p\}$ is infinite-dimensional (the Weyl algebra). However, for a \emph{Gaussian} bath, the influence functional involves only the quadratic form $\Delta = \frac{1}{2}\sum_{n,m}C_{nm}f_n f_m$, which generates operators in the quadratic subalgebra
+\begin{equation}
+    \mathcal{A}^{(2)} = \mathrm{span}\{I, q^2, p^2, qp+pq, q, p\}.
+    \label{eq:HO_quadratic_algebra}
+\end{equation}
+This is a 6-dimensional space (5 free parameters excluding normalisation). The HMF is therefore a general quadratic polynomial:
+\begin{equation}
+    \HMF = \frac{p^2}{2m_{\mathrm{MF}}} + \frac{m_{\mathrm{MF}}\omega_{\mathrm{MF}}^2}{2}q^2 + \gamma(qp+pq) + \epsilon_q q + \epsilon_p p + c_0 I.
+    \label{eq:HMF_HO}
+\end{equation}
+This reproduces the known result: the Caldeira--Leggett reduced equilibrium state is Gaussian~\cite{grabertQuantumBrownianMotion1988,hiltHamiltonianMeanForce2011}, and the HMF is a renormalised harmonic Hamiltonian with possible squeezing ($\gamma$) and displacement ($\epsilon_q, \epsilon_p$) terms. The renormalised mass $m_{\mathrm{MF}}$ and frequency $\omega_{\mathrm{MF}}$ are determined by the Matsubara weights $\kappa_\ell$ and generating-function moments $I_n(\nu_\ell)$.
+
+\paragraph{Non-Gaussian bath.}
+For a non-Gaussian bath, the fourth cumulant generates $\Phi^{(4)} \propto q^4$ plus commutator-dressed terms ($q^3 p$, $q^2 p^2$, etc.), and the master algebra expands to include quartic and higher-order operators. Since $\dim\mathcal{H}_S = \infty$, the Cayley--Hamilton closure does not apply, and the polynomial hierarchy does not terminate. In this sense, the harmonic oscillator is the simplest system where the master-algebra closure is \emph{not} guaranteed by finite dimensionality. Closure must be imposed as a physical assumption (e.g.\ Gaussianity of the bath) rather than derived from the algebra.
+
+This example illustrates a key limitation of the framework: for infinite-dimensional systems, the closure theorem (Theorem~\ref{thm:closure}) does not apply, and additional physical input is needed to determine whether $\HMF$ has a finite operator representation.
+
+\subsection{Many-body spin chain with approximate symmetry}
+\label{sec:example_spin_chain}
+
+Consider an $N$-site Heisenberg XXZ chain
+\begin{equation}
+    H_S = J\sum_{i=1}^{N-1}\left(\sigma_x^{(i)}\sigma_x^{(i+1)} + \sigma_y^{(i)}\sigma_y^{(i+1)} + \Delta_z\sigma_z^{(i)}\sigma_z^{(i+1)}\right),
+    \label{eq:XXZ_chain}
+\end{equation}
+coupled to a bath through $f = S_z = \frac{1}{2}\sum_i \sigma_z^{(i)}$.
+
+\paragraph{Symmetry-protected closure.}
+Since $[H_S, S_z] = 0$ for any $\Delta_z$, the adjoint chain is trivial: $f_n = 0$ for $n\geq 1$. The master algebra reduces to $\mathcal{A}_f = \mathrm{span}\{I, S_z, S_z^2, \ldots\}$. The Cayley--Hamilton theorem for $S_z$ (which has eigenvalues $\{-N/2, -N/2+1, \ldots, N/2\}$, at most $N+1$ distinct) gives closure at $\dim\mathcal{A}_f = N+1$.
+
+The HMF is a polynomial in $S_z$ alone:
+\begin{equation}
+    \HMF = H_S - \frac{1}{\beta}\sum_{n=1}^{N}\alpha_{2n}\,S_z^{2n} + c_0 I.
+    \label{eq:HMF_XXZ_Sz}
+\end{equation}
+This is exact for any bath (Gaussian or not). The bath can renormalise the Ising anisotropy (via $S_z^2$), introduce effective quartic interactions ($S_z^4$), etc., but it \emph{cannot} break the $U(1)$ symmetry or generate off-diagonal (spin-flip) operators. Integrability of the XXZ chain, if present, is preserved by $\HMF$.
+
+\paragraph{Symmetry-breaking coupling.}
+Now suppose the coupling has a small transverse component: $f = S_z + \epsilon\,\sigma_x^{(1)}$ for small $\epsilon$. The commutator $[H_S, \sigma_x^{(1)}]$ generates operators on sites 1 and 2 (through the nearest-neighbour coupling), and iterated commutators spread operators to all $N$ sites. The adjoint chain closure order grows with $N$, and the master algebra can become exponentially large ($D \sim 4^N$) for generic $\epsilon$.
+
+However, the structure of the commutator expansion provides a natural perturbative hierarchy: at order $\epsilon^k$, only operators with support on at most $k+1$ contiguous sites contribute. This suggests a truncation strategy: retain the $k$-local subalgebra of $\mathcal{A}_{f,H_S}$ and truncate at a fixed locality. The non-uniqueness result (Section~\ref{sec:non_uniqueness}) guarantees that this truncation is not universally optimal, but for small $\epsilon$ it is the natural choice.
+
+\paragraph{Beyond state of the art.}
+The explicit construction of $\HMF$ as a polynomial in $S_z$ for the exactly commuting case, Eq.~\eqref{eq:HMF_XXZ_Sz}, goes beyond existing results in several ways:
+\begin{enumerate}
+    \item It is valid for \emph{arbitrary} bath statistics, not just Gaussian, and provides the exact operator content without any weak-coupling or Markovian assumption.
+    \item The polynomial coefficients $\{\alpha_{2n}\}$ can be computed from the bath cumulants in closed form using the nested HS construction.
+    \item The preservation of integrability is a structural consequence of the algebra, not an approximation: the HMF is a function of a conserved charge, so any Bethe-ansatz solution of $H_S$ remains valid for $\HMF$ with renormalised parameters.
+\end{enumerate}

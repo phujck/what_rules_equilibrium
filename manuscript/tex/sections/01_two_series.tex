@@ -1,0 +1,103 @@
+\section{Two sources of series}
+\label{sec:two_series}
+
+We consider a composite Hilbert space $\mathcal{H} = \mathcal{H}_S \otimes \mathcal{H}_B$ with total Hamiltonian
+\begin{equation}
+    H_{\mathrm{tot}} = H_S + H_B + H_I,\qquad H_I = f\otimes B,
+    \label{eq:Htot}
+\end{equation}
+where $f$ is Hermitian on $\mathcal{H}_S$ and $B$ on $\mathcal{H}_B$. The reduced equilibrium operator and the Hamiltonian of mean force are
+\begin{align}
+    \rhobar(\beta) &\equiv \Tr_B\,e^{-\beta H_{\mathrm{tot}}}, \label{eq:rhobar_def}\\
+    \HMF(\beta) &\equiv -\frac{1}{\beta}\log\frac{\rhobar(\beta)}{Z_B(\beta)},\qquad Z_B = \Tr_B\,e^{-\beta H_B}. \label{eq:HMF_def}
+\end{align}
+Our task is to characterise the operator content of $\HMF$.
+
+\subsection{The polynomial series: non-Gaussianity}
+\label{sec:polynomial_series}
+
+Following the imaginary-time interaction picture, the bath can be eliminated by tracing over $\mathcal{H}_B$. In full generality, the resulting influence functional is a sum over even-order connected correlators --- the bath cumulants:
+\begin{equation}
+    \log\Tr_B\!\left[\mathcal{T}_\tau e^{-\int_0^\beta d\tau\,\tilde{B}(\tau)\tilde{f}(\tau)}\,e^{-\beta H_B}\right]
+    =
+    \sum_{n=1}^\infty \Phi^{(2n)},
+    \label{eq:cumulant_expansion}
+\end{equation}
+where $\Phi^{(2n)}$ is the contribution of the $2n$-th cumulant of $B$:
+\begin{equation}
+    \Phi^{(2n)} = \frac{(-1)^{2n}}{(2n)!}\int K_{2n}(\tau_1,\ldots,\tau_{2n})\prod_{i=1}^{2n}\tilde{f}(\tau_i)\,d\tau_i.
+    \label{eq:Phi2n_general}
+\end{equation}
+Odd cumulants vanish by the symmetry $B\to -B$ of the Caldeira--Leggett form, or more generally by the trace cyclicity and Hermiticity of the equilibrium state.
+
+\paragraph{Commuting sector.}
+When $[H_S,f]=0$, the imaginary-time coupling is static: $\tilde{f}(\tau)=f$. All time integrals collapse to scalars, and each cumulant contribution becomes a monomial:
+\begin{equation}
+    \Phi^{(2n)}\big|_{[H_S,f]=0} = \frac{\kappa_{2n}}{(2n)!}\,f^{2n},
+    \label{eq:Phi2n_commuting}
+\end{equation}
+where $\kappa_{2n}\equiv \int K_{2n}(\tau_1,\ldots,\tau_{2n})\,d\tau_1\cdots d\tau_{2n}$ is the integrated cumulant strength. The influence functional exponentiates to a polynomial in $f$, yielding the exact HMF
+\begin{equation}
+    \HMF\big|_{[H_S,f]=0} = H_S - \frac{1}{\beta}\sum_{n=1}^\infty \alpha_{2n}\,f^{2n},
+    \label{eq:HMF_polynomial_commuting}
+\end{equation}
+with $\alpha_{2n} = \kappa_{2n}/(2n)!$. The operator content is controlled by the \emph{even-coupling algebra} $\mathcal{A}_f = \mathrm{span}\{I,f^2,f^4,\ldots\}$, which closes at dimension $\leq d$ for a $d$-level system by the Cayley--Hamilton theorem.
+
+This is the polynomial series: non-Gaussianity generates successively higher powers of $f$, and the algebra $\mathcal{A}_f$ determines when and how these powers become linearly dependent.
+
+\subsection{The commutator series: non-commutativity}
+\label{sec:commutator_series}
+
+For a Gaussian bath ($K_{2n}=0$ for $n\geq 2$), only the second cumulant survives. But when $[H_S,f]\neq 0$, the interaction-picture coupling $\tilde{f}(\tau)=e^{\tau H_S}fe^{-\tau H_S}$ generates new operators. Introduce the adjoint chain
+\begin{equation}
+    f_n \equiv \adf^n(f),\qquad f_0 = f,
+    \label{eq:adjoint_chain_def}
+\end{equation}
+so that
+\begin{equation}
+    \tilde{f}(\tau) = \sum_{n=0}^\infty \frac{\tau^n}{n!}\,f_n.
+    \label{eq:ftilde_adjoint_expansion}
+\end{equation}
+Substituting into the Gaussian influence functional and performing all time integrals yields the bilocal influence operator
+\begin{equation}
+    \Delta = \frac{1}{2}\sum_{n,m=0}^\infty C_{nm}(\beta)\,f_n f_m,
+    \label{eq:Delta_commutator_form}
+\end{equation}
+where $C_{nm}(\beta)$ are scalar coefficients encoding the bath data (Matsubara mode weights and factorial moments of the kernel). The reduced equilibrium operator then takes the product form
+\begin{equation}
+    \rhobar(\beta) = e^{-\beta H_S}\,e^{\Delta},
+    \label{eq:rhobar_product_form}
+\end{equation}
+which can be collapsed to a single exponent via the Baker--Campbell--Hausdorff (BCH) formula. To linear order in $\Delta$, the Bernoulli resummation gives
+\begin{equation}
+    \HMF(\beta) = H_S - \frac{1}{\beta}\sum_{r=0}^\infty \frac{B_r}{r!}(-\beta)^r\,\adf^r(\Delta) + \mathcal{O}(\Delta^2),
+    \label{eq:HMF_Bernoulli}
+\end{equation}
+where $B_r$ are Bernoulli numbers. Since $[H_S,f_n]=f_{n+1}$, the $r$-fold adjoint action shifts chain indices via the binomial identity
+\begin{equation}
+    \adf^r(f_n f_m) = \sum_{k=0}^r\binom{r}{k}f_{n+k}\,f_{m+r-k}.
+    \label{eq:binomial_adjoint}
+\end{equation}
+The operator content is controlled by the \emph{adjoint algebra} $\mathfrak{a}_f = \mathrm{span}\{f_0,f_1,f_2,\ldots\}$. If this Lie-generated family closes at finite order $N$ --- meaning $f_N$ is a linear combination of $\{f_0,\ldots,f_{N-1}\}$ --- then $\HMF$ lives in the finite-dimensional associative algebra generated by at most $N$ operators.
+
+This is the commutator series: non-commutativity generates successively deeper nested commutators, and the adjoint algebra $\mathfrak{a}_f$ determines when and how these commutators become linearly dependent.
+
+\subsection{The general case: both sources active}
+\label{sec:general_case}
+
+In the most general case, the bath has nontrivial cumulants \emph{and} the coupling does not commute with $H_S$. The influence functional then contains terms of the form
+\begin{equation}
+    \Phi^{(2n)} = \frac{1}{(2n)!}\int K_{2n}\,\prod_{i=1}^{2n}\tilde{f}(\tau_i)\,d\tau_i,
+    \label{eq:Phi2n_general_expanded}
+\end{equation}
+where each $\tilde{f}(\tau_i)$ expands in the adjoint chain Eq.~\eqref{eq:ftilde_adjoint_expansion}. After performing all time integrals, the result is a sum of products of adjoint-chain elements:
+\begin{equation}
+    \Phi^{(2n)} = \sum_{k_1,\ldots,k_{2n}\geq 0} \mu^{(2n)}_{k_1\ldots k_{2n}}(\beta)\;f_{k_1}f_{k_2}\cdots f_{k_{2n}},
+    \label{eq:Phi2n_adjoint_expansion}
+\end{equation}
+where $\mu^{(2n)}_{k_1\ldots k_{2n}}$ are scalar coefficients determined by the $2n$-th cumulant kernel and the factorial moments. The complete influence functional is therefore a sum over all cumulant orders and all adjoint-chain products:
+\begin{equation}
+    \sum_{n=1}^\infty\Phi^{(2n)} = \sum_{n=1}^\infty\sum_{\mathbf{k}} \mu^{(2n)}_{\mathbf{k}}(\beta)\;f_{k_1}\cdots f_{k_{2n}}.
+    \label{eq:total_IF_general}
+\end{equation}
+The operator content of $\HMF$ is therefore determined by the associative algebra generated by all such products. This is the object we now define precisely.

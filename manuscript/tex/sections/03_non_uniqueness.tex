@@ -1,0 +1,65 @@
+\section{Non-uniqueness of representations}
+\label{sec:non_uniqueness}
+
+The master algebra $\mathcal{A}_{f,H_S}$ is a finite-dimensional vector space. Any element of this space --- including $\HMF$ --- can be expressed in terms of \emph{any} basis for $\mathcal{A}_{f,H_S}$. But different bases correspond to different physical decompositions: a polynomial basis $\{I,f^2,f^4,\ldots\}$, a commutator basis $\{f_0,\,f_0 f_1,\,f_1 f_0,\ldots\}$, or a mixed basis that combines both. This section shows that the choice of basis has profound consequences for approximation theory.
+
+\subsection{Multiple exact series for the same state}
+
+Since $\HMF\in\mathcal{A}_{f,H_S}$, and $\mathcal{A}_{f,H_S}$ has dimension $D\leq d^2$, we may choose any basis $\{O_1,\ldots,O_D\}$ for the algebra and write
+\begin{equation}
+    \HMF(\beta) = \sum_{i=1}^D c_i(\beta)\,O_i,
+    \label{eq:HMF_basis_expansion}
+\end{equation}
+where the $c_i$ are real coefficients determined by the bath data ($\beta$, cumulants, spectral density). The decomposition is \emph{exact}: no approximation is involved. But the coefficients $c_i$ depend on the choice of basis.
+
+Consider two natural bases:
+\begin{itemize}
+    \item \textbf{Basis $\mathcal{B}_{\mathrm{poly}}$}: the monomials $\{I,f^2,f^4,\ldots,f^{2(D-1)}\}$ (or their linearly independent subset). This is the natural basis for the polynomial/cumulant expansion.
+    
+    \item \textbf{Basis $\mathcal{B}_{\mathrm{comm}}$}: the products of adjoint-chain elements $\{I, f_0 f_0, f_0 f_1, f_1 f_0, f_1 f_1, \ldots\}$ (or their linearly independent subset). This is the natural basis for the commutator/BCH expansion.
+\end{itemize}
+Both bases span $\mathcal{A}_{f,H_S}$, and the same $\HMF$ is expressed in each. But the \emph{convergence properties} of a truncated expansion depend on the basis.
+
+\subsection{Truncation inequivalence}
+
+In practice, one never works with the full master algebra. Any approximation scheme amounts to a truncation: retaining a subspace $V\subset\mathcal{A}_{f,H_S}$ and projecting $\HMF$ onto $V$. Different bases naturally suggest different truncation subspaces.
+
+\begin{proposition}[Truncation inequivalence]
+\label{prop:truncation_inequivalence}
+Let $V_1\subset \mathcal{A}_{f,H_S}$ and $V_2\subset \mathcal{A}_{f,H_S}$ be two truncation subspaces of the same dimension, associated with two different bases. Then in general, the projections $\HMF|_{V_1}$ and $\HMF|_{V_2}$ differ, and neither dominates the other in the operator norm for all values of the bath parameters.
+\end{proposition}
+
+\begin{proof}
+It suffices to exhibit the phenomenon for a qubit. Let $H_S = (\omega/2)\sigma_z$ and $f = \sigma_x$. The adjoint chain closes on $\{f_0 = \sigma_x,\,f_1 = i\omega\sigma_y\}$, and the master algebra is $M_2(\mathbb{C})$ (spanned by the Pauli matrices and the identity). Consider the two-dimensional truncation subspaces:
+\begin{align}
+    V_1 &= \mathrm{span}\{I,\,\sigma_x^2\} = \mathrm{span}\{I\}, \nonumber\\
+    V_2 &= \mathrm{span}\{I,\,\sigma_z\}. \nonumber
+\end{align}
+In the commuting limit ($\omega\to 0$), $V_1$ captures the full $\HMF$ (which reduces to $H_S + \text{const}\cdot I$) while $V_2$ captures the Hamiltonian direction. For finite $\omega$, the non-commuting corrections generate a $\sigma_z$ component, so $V_2$ becomes increasingly important. Neither subspace uniformly dominates.
+\end{proof}
+
+\subsection{Connection to known approximation schemes}
+
+The formalism provides a unifying language for understanding why established methods disagree.
+
+\paragraph{Weak-coupling perturbation theory.}
+The standard expansion in powers of the system--bath coupling strength $\lambda$ (with $f\to\lambda f$) generates terms ordered by $\lambda^{2n}$, each involving the $n$-th cumulant (for Gaussian baths, only $n=1$) dressed by $n$ commutator corrections. This corresponds to a diagonal truncation in the two-index space $(n,r)$, retaining $n+r\leq N_{\mathrm{trunc}}$. It converges at weak coupling but misses high-cumulant and/or deep-commutator contributions at strong coupling.
+
+\paragraph{Polaron transformation.}
+The polaron (or Lang--Firsov) transformation~\cite{silbeyVariationalCalculationDynamics1984} performs a unitary rotation $U = e^{f\otimes G}$ that partially diagonalises $H_I$. In the transformed frame, the ``residual'' coupling is smaller, and the truncation converges faster. But this is equivalent to changing the basis for $\mathcal{A}_{f,H_S}$: the polaron-frame operators are linear combinations of the original $\{f_n\}$, and the truncation subspace is rotated. The polaron frame is optimal when the coupling is strong relative to the tunnelling (system) energy, but suboptimal when both are comparable~\cite{nazirReactionCoordinateMapping2018}.
+
+\paragraph{Born--Markov and Redfield.}
+These retain only second-order contributions ($\Delta$ to linear order) and further assume Markovianity (replace $C_{nm}$ by their zero-frequency value). In the master-algebra language, this projects onto the subspace spanned by $\{I,\,f_0 f_0\}$ --- the smallest nontrivial truncation. It is exact in the weak-coupling, high-temperature limit but fails qualitatively at strong coupling or low temperature.
+
+\paragraph{Reaction coordinate mapping.}
+The reaction coordinate approach~\cite{nazirReactionCoordinateMapping2018,strausbergReactionCoordinate2016} extracts a single bosonic mode from the bath and includes it in the system. In the master-algebra framework, this enlarges $\mathcal{H}_S$ and changes the coupling graph, enabling a larger algebra to be treated exactly. The quality of the approximation depends on how much of the spectral density is captured by the extracted mode.
+
+\paragraph{Variational methods.}
+Variational approaches~\cite{silbeyVariationalCalculationDynamics1984} optimise over a restricted ansatz, which in our language corresponds to choosing a truncation subspace $V$ and minimising the free energy over $V$. The ansatz is a choice of basis for an approximate $\HMF$.
+
+\medskip
+In each case, the method works because it selects a good subspace of the master algebra for the parameter regime of interest. But \emph{no single subspace is optimal for all parameters}, because the coefficients $c_i(\beta)$ in Eq.~\eqref{eq:HMF_basis_expansion} depend on the bath data in a way that is not monotonic in any single parameter.
+
+\subsection{The pragmatic lesson}
+
+The non-uniqueness result is not a pessimistic statement. Rather, it provides a constructive criterion for choosing an approximation: \emph{the best truncation is the one that captures the largest projection of $\HMF$ onto the truncation subspace}. For a given $(H_S,f)$, one can compute the master algebra exactly (it is a finite linear-algebra problem), choose a basis adapted to the algebra's block structure, and truncate systematically. The non-uniqueness result explains \emph{why} different methods disagree and provides the mathematical framework for making principled choices among them.
