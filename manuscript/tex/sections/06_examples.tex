@@ -67,6 +67,11 @@ Comparing Eqs.~\eqref{eq:HMF_qubit_gaussian} and~\eqref{eq:HMF_qubit_ng_comm}: b
 \end{equation}
 demonstrating that a single non-Gaussian cumulant suffices to reproduce the full quantum Gaussian HMF for a qubit. This is a concrete realisation of Theorem~\ref{thm:qc_equivalence}.
 
+\begin{figure}[t]
+    \includegraphics[width=\columnwidth]{../../simulations/results/figures/qc_equivalence_demo.pdf}
+    \caption{\label{fig:qc_equivalence} \textbf{Quantum--Classical Equivalence.} Left: Renormalised splitting $\omega_{\mathrm{MF}}$ of a qubit coupled to a quantum Ohmic bath ($\alpha$) via transverse coupling $\sigma_x$. Right: The corresponding fourth-order cumulant $\kappa_4$ required for a classical non-Gaussian bath (coupled via $P_0$) to reproduce the exact same splitting. The classical bath ``pays'' for the quantum suppression effect with a specific non-Gaussian cost.}
+\end{figure}
+
 \paragraph{Beyond Gaussian: transverse deformation.}
 If the bath is \emph{both} non-Gaussian and non-commuting ($f = \sigma_x$, fourth cumulant nonzero), then $\Phi^{(4)}$ involves products of four $\tilde{f}(\tau_i)$, generating $\sigma_x\sigma_y\sigma_x\sigma_y = -I$ and $\sigma_x\sigma_x\sigma_y\sigma_y = -I$ terms, plus cross-terms involving $\sigma_z$. For the qubit, these all reduce to $\{I,\sigma_z\}$ (by the identity $\sigma_\alpha\sigma_\beta = \delta_{\alpha\beta}I + i\epsilon_{\alpha\beta\gamma}\sigma_\gamma$), so higher cumulants beyond second order do not generate new operator structures. This is a reflection of the algebraic triviality of the qubit: $\mathcal{A}_{f,H_S} = M_2(\mathbb{C})$ regardless of bath statistics.
 
